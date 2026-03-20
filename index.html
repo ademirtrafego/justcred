@@ -853,143 +853,140 @@ body{background:var(--dark);color:var(--text);font-family:var(--font);min-height
       <div style="font-size:3.5rem;margin-bottom:16px">✅</div>
       <div style="font-size:1.3rem;font-weight:900;color:var(--green);margin-bottom:8px">Solicitação enviada!</div>
       <div style="font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:20px;font-weight:400">
-        Recebemos sua solicitação de crédito.<br/>
-        Nossa equipe já está processando.
+        Recebemos seu pedido.<br/>Nossa equipe já está processando.
       </div>
-
-      <!-- Destaque do prazo -->
       <div style="background:rgba(0,230,118,.08);border:2px solid rgba(0,230,118,.3);border-radius:16px;padding:22px;margin-bottom:22px">
         <div style="font-size:1.8rem;margin-bottom:8px">⏱️</div>
         <div style="font-size:1rem;font-weight:900;color:var(--green);margin-bottom:4px">Pagamento em até 1 hora</div>
-        <div style="font-size:.78rem;color:var(--muted);font-weight:400">O valor será enviado via Pix para a chave informada assim que o pagamento for processado.</div>
+        <div style="font-size:.78rem;color:var(--muted);font-weight:400">O valor será enviado via Pix para a chave informada assim que processarmos seu pedido.</div>
       </div>
-
-      <div style="background:var(--dark3);border-radius:10px;padding:14px;margin-bottom:20px;font-size:.78rem;text-align:left">
-        <div style="font-weight:700;margin-bottom:8px;color:var(--text)">Resumo da solicitação</div>
-        <div style="color:var(--muted);display:flex;flex-direction:column;gap:4px">
-          <div>💰 Valor: <strong id="sucesso-valor" style="color:var(--green)">—</strong></div>
-          <div>🔑 Pix: <strong id="sucesso-pix" style="color:var(--text)">—</strong></div>
-          <div>📅 Parcelas: <strong id="sucesso-parc" style="color:var(--text)">—</strong></div>
-        </div>
-      </div>
-
-      <button class="btn btn-primary btn-full" onclick="goTo('s-dashboard')">Ir ao meu painel →</button>
+      <button class="btn btn-primary btn-full btn-lg" onclick="irAoDashboardPossolicitacao()">
+        Ver meu painel →
+      </button>
     </div>
   </div>
 </div>
 
 <!-- ════════════════════════════════════════
      APP SHELL (DASHBOARD + SIDEBAR)
-     Usado pelos screens internos
 ════════════════════════════════════════ -->
 
 <!-- ── SCREEN: DASHBOARD ── -->
 <div class="screen" id="s-dashboard">
-  <!-- TOP NAV -->
   <nav class="app-nav">
     <div class="logo" onclick="goTo('s-landing')">Just<span>Cred</span></div>
     <div class="nav-user">
       <div class="nav-notif" onclick="goTo('s-notif')">🔔<span class="notif-dot"></span></div>
-      <div class="nav-avatar" onclick="goTo('s-perfil')">MR</div>
+      <div class="nav-avatar" onclick="goTo('s-perfil')">?</div>
       <button class="btn-logout" onclick="goTo('s-landing')">Sair</button>
     </div>
   </nav>
   <div class="layout">
-    <!-- SIDEBAR -->
     <aside class="sidebar">
-      <a onclick="goTo('s-dashboard')" id="sd-dash" class="active"><span class="s-icon">🏠</span> Dashboard</a>
-      <a onclick="goTo('s-simulacao')" id="sd-sim"><span class="s-icon">🧮</span> Simulação</a>
-      <a onclick="goTo('s-solicitar')" id="sd-sol"><span class="s-icon">⚡</span> Solicitar</a>
-      <a onclick="goTo('s-emprestimos')" id="sd-emp"><span class="s-icon">💳</span> Meus Empréstimos</a>
-      <div class="sidebar-sep"></div>
-      <a onclick="goTo('s-notif')" id="sd-not"><span class="s-icon">🔔</span> Notificações</a>
-      <a onclick="goTo('s-perfil')" id="sd-perf"><span class="s-icon">👤</span> Perfil</a>
-      <a><span class="s-icon">💬</span> Suporte</a>
+      <a onclick="goTo('s-dashboard')" class="active"><span class="s-icon">🏠</span> Dashboard</a>
+      <a onclick="goTo('s-perfil')"><span class="s-icon">👤</span> Perfil</a>
+      <a onclick="goTo('s-notif')"><span class="s-icon">🔔</span> Notificações</a>
       <div class="sidebar-sep"></div>
       <a onclick="goTo('s-landing')" style="color:var(--danger)"><span class="s-icon">🚪</span> Sair</a>
     </aside>
     <main class="main-content fade-up">
+
+      <!-- Saudação -->
       <div class="dash-welcome">
-        <h2>Olá, Marcos! 👋</h2>
-        <p>Aqui está o resumo da sua conta — 20 de março de 2026</p>
+        <h2 id="dash-saudacao">Olá! 👋</h2>
+        <p id="dash-data">Bem-vindo à JustCred</p>
       </div>
-      <div class="kpi-grid">
-        <div class="kpi">
-          <div class="kpi-label">Limite disponível</div>
-          <div class="kpi-value green">R$ 320</div>
-          <div class="kpi-sub">de R$ 500 total</div>
-        </div>
-        <div class="kpi">
-          <div class="kpi-label">Em aberto</div>
-          <div class="kpi-value warn">R$ 180</div>
-          <div class="kpi-sub">1 empréstimo ativo</div>
-        </div>
-        <div class="kpi">
-          <div class="kpi-label">Próx. vencimento</div>
-          <div class="kpi-value info">05/04</div>
-          <div class="kpi-sub">R$ 95,00 · Parcela 2/2</div>
-        </div>
-        <div class="kpi">
-          <div class="kpi-label">Score JustCred</div>
-          <div class="kpi-value green">★ 4.8</div>
-          <div class="kpi-sub">Pagador exemplar</div>
-        </div>
-      </div>
-      <div class="dash-grid">
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-            <div style="font-size:.9rem;font-weight:800">Empréstimos recentes</div>
-            <button class="btn btn-ghost" style="font-size:.75rem" onclick="goTo('s-emprestimos')">Ver todos →</button>
+
+      <!-- ── ESTADO: sem solicitação ativa ── -->
+      <div id="dash-sem-solicitacao">
+        <div style="max-width:520px">
+          <!-- Card aprovação -->
+          <div style="background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.25);border-radius:20px;padding:32px;text-align:center;margin-bottom:20px">
+            <div style="font-size:2.5rem;margin-bottom:12px">🎉</div>
+            <div style="font-size:1.2rem;font-weight:900;color:var(--green);margin-bottom:6px">Você está aprovado!</div>
+            <div style="font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:22px;font-weight:400">
+              Seu crédito de até <strong style="color:var(--text)">R$ 500,00</strong> está disponível.<br/>Solicite agora e receba via Pix em até 1 hora.
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;text-align:left;background:var(--dark3);border-radius:12px;padding:16px">
+              <div style="font-size:.75rem;color:var(--green);font-weight:600">✓ CPF verificado</div>
+              <div style="font-size:.75rem;color:var(--green);font-weight:600">✓ Score aprovado — ★ 4.8</div>
+              <div style="font-size:.75rem;color:var(--green);font-weight:600">✓ Limite liberado: R$ 500,00</div>
+            </div>
+            <button class="btn btn-primary btn-full btn-lg" onclick="irParaSolicitacao()">
+              ⚡ Solicitar meu crédito agora
+            </button>
           </div>
-          <div class="emp-list">
-            <div class="emp-item">
-              <div class="emp-info">
-                <div class="emp-name">Empréstimo #0042</div>
-                <div class="emp-date">01/03/2026 · Pix • João Silva Pix</div>
-              </div>
-              <div class="emp-right">
-                <div class="emp-val">R$ 180</div>
-                <div style="margin-top:4px"><span class="badge badge-warn">Em aberto</span></div>
-              </div>
+
+          <div class="card-sm" style="background:rgba(0,230,118,.04);border-color:rgba(0,230,118,.15);text-align:center">
+            <div style="font-size:.78rem;color:var(--muted);font-weight:400;line-height:1.6">
+              Dúvidas? Fale conosco pelo e-mail<br/>
+              <a href="/cdn-cgi/l/email-protection#68021d1b1c0b1a0d0c1b1d18071a1c0d280f05090104460b0705" style="color:var(--green);font-weight:700;text-decoration:none"><span class="__cf_email__" data-cfemail="f09a858384938295948385809f828495b0979d91999cde939f9d">[email&#160;protected]</span></a>
             </div>
-            <div class="emp-item">
-              <div class="emp-info">
-                <div class="emp-name">Empréstimo #0038</div>
-                <div class="emp-date">10/02/2026 · Pix</div>
-              </div>
-              <div class="emp-right">
-                <div class="emp-val" style="color:var(--muted)">R$ 250</div>
-                <div style="margin-top:4px"><span class="badge badge-green">Quitado</span></div>
-              </div>
-            </div>
-            <div class="emp-item">
-              <div class="emp-info">
-                <div class="emp-name">Empréstimo #0031</div>
-                <div class="emp-date">15/01/2026 · Pix</div>
-              </div>
-              <div class="emp-right">
-                <div class="emp-val" style="color:var(--muted)">R$ 100</div>
-                <div style="margin-top:4px"><span class="badge badge-green">Quitado</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="margin-bottom:16px">
-            <div style="font-size:.9rem;font-weight:800;margin-bottom:14px">Ações rápidas</div>
-            <div class="quick-actions">
-              <div class="qa-btn" onclick="goTo('s-solicitar')"><div class="qa-ico">⚡</div><div class="qa-label">Solicitar crédito</div></div>
-              <div class="qa-btn" onclick="goTo('s-simulacao')"><div class="qa-ico">🧮</div><div class="qa-label">Simular</div></div>
-              <div class="qa-btn" onclick="goTo('s-emprestimos')"><div class="qa-ico">💳</div><div class="qa-label">Pagar parcela</div></div>
-              <div class="qa-btn" onclick="goTo('s-perfil')"><div class="qa-ico">📄</div><div class="qa-label">Meus docs</div></div>
-            </div>
-          </div>
-          <div class="card-sm" style="background:rgba(0,230,118,.06);border-color:rgba(0,230,118,.2)">
-            <div style="font-size:.72rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">💡 Dica</div>
-            <div style="font-size:.8rem;line-height:1.6;color:var(--muted);font-weight:400">Pague suas parcelas em dia e aumente seu limite para até R$500 no próximo empréstimo.</div>
           </div>
         </div>
       </div>
+
+      <!-- ── ESTADO: solicitação enviada — aguardando pagamento ── -->
+      <div id="dash-aguardando" style="display:none">
+        <div style="max-width:520px">
+          <div style="background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.2);border-radius:20px;padding:28px;margin-bottom:20px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+              <div style="font-size:1.8rem">⏳</div>
+              <div>
+                <div style="font-size:1rem;font-weight:900">Crédito solicitado</div>
+                <div style="font-size:.78rem;color:var(--muted);font-weight:400">Aguardando liberação pela equipe JustCred</div>
+              </div>
+            </div>
+            <div style="background:var(--dark3);border-radius:10px;padding:14px;font-size:.8rem;display:flex;flex-direction:column;gap:6px;margin-bottom:18px">
+              <div style="display:flex;justify-content:space-between">
+                <span style="color:var(--muted)">Valor solicitado</span>
+                <strong id="dash-val-sol" style="color:var(--green)">—</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between">
+                <span style="color:var(--muted)">Chave Pix</span>
+                <strong id="dash-pix-sol" style="color:var(--text)">—</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between">
+                <span style="color:var(--muted)">Prazo de liberação</span>
+                <strong style="color:var(--warn)">até 1 hora</strong>
+              </div>
+            </div>
+            <div style="background:rgba(255,165,2,.08);border:1px solid rgba(255,165,2,.25);border-radius:10px;padding:12px;font-size:.78rem;color:var(--warn);font-weight:600;text-align:center">
+              📲 Você receberá o Pix assim que processarmos seu pedido
+            </div>
+          </div>
+
+          <!-- Card de pagamento do empréstimo -->
+          <div id="dash-card-pix" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;text-align:center">
+            <div style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Quando chegar o vencimento</div>
+            <div style="font-size:1rem;font-weight:800;margin-bottom:4px">Pague seu empréstimo via Pix</div>
+            <div style="font-size:.8rem;color:var(--muted);margin-bottom:20px;font-weight:400">Prazo: 30 dias após a liberação</div>
+
+            <!-- QR Code gerado via API pública -->
+            <div style="background:#fff;border-radius:12px;padding:12px;display:inline-block;margin-bottom:16px">
+              <img id="qr-code-img"
+                src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=justcredsuporte%40gmail.com"
+                alt="QR Code Pix JustCred"
+                width="180" height="180"
+                style="display:block;border-radius:6px"/>
+            </div>
+
+            <div style="background:var(--dark3);border-radius:10px;padding:14px;margin-bottom:14px">
+              <div style="font-size:.68rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Chave Pix para pagamento</div>
+              <div style="font-size:.95rem;font-weight:800;color:var(--green);margin-bottom:8px"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96fce3e5e2f5e4f3f2e5e3e6f9e4e2f3d6f1fbf7fffab8f5f9fb">[email&#160;protected]</a></div>
+              <button onclick="copiarChavePix()" class="btn btn-outline" style="padding:8px 20px;font-size:.75rem;border-radius:8px;width:100%">
+                📋 Copiar chave
+              </button>
+            </div>
+
+            <div style="font-size:.72rem;color:var(--muted);line-height:1.6;font-weight:400">
+              Valor a pagar: <strong id="dash-val-pagar" style="color:var(--text)">—</strong><br/>
+              Vencimento: <strong id="dash-vencimento" style="color:var(--warn)">—</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 </div>
@@ -1418,143 +1415,194 @@ body{background:var(--dark);color:var(--text);font-family:var(--font);min-height
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ══════════════════════════════════════════
-//  ⚙️ CONFIGURAÇÃO — troque apenas este ID
-//  Crie sua conta em formspree.io e cole o
-//  ID gerado abaixo (ex: "xpwzablo")
-// ══════════════════════════════════════════
-const FORMSPREE_ID = 'mkoqepwa';
-const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ════════════════════════════════════════
+//  SUPABASE — configuração
+// ════════════════════════════════════════
+const SUPA_URL = 'https://xamhcyxgnxnaaceaqdmy.supabase.co';
+const SUPA_KEY = 'sb_publishable_eO1dk1DJW0LfiG3Bt88NOg_rYKMpToj';
+const supa     = supabase.createClient(SUPA_URL, SUPA_KEY);
+const FORMSPREE_URL = 'https://formspree.io/f/mkoqepwa';
 
-// ─── Estado global da sessão ───
-const session = {
-  nome: '', cpf: '', whatsapp: '', email: '',
-  valorSolicitado: 0, chavePix: '', parcelas: 0,
-  proposta: '', origem: ''
-};
+const session = { id:null, nome:'', cpf:'', whatsapp:'', email:'', senha:'', valorSolicitado:0, chavePix:'', solicitacaoEnviada:false, vencimento:'' };
 
-// ══════════════════════════════════════════
-//  FUNÇÃO CENTRAL: envia para o Formspree
-//  recebe um objeto com { tipo, ...campos }
-// ══════════════════════════════════════════
-async function enviarFormspree(dados, btnEl) {
-  const original = btnEl ? btnEl.textContent : null;
-  if (btnEl) { btnEl.disabled = true; btnEl.textContent = 'Enviando...'; }
-  try {
-    const res = await fetch(FORMSPREE_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ ...dados, _data_hora: new Date().toLocaleString('pt-BR'), _origem: 'JustCred App 2026' })
-    });
-    if (btnEl) { btnEl.disabled = false; btnEl.textContent = original; }
-    return res.ok;
-  } catch {
-    if (btnEl) { btnEl.disabled = false; btnEl.textContent = original; }
-    return false;
-  }
+async function enviarFormspree(dados) {
+  try { await fetch(FORMSPREE_URL, { method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify({...dados, _hora:new Date().toLocaleString('pt-BR')}) }); } catch {}
 }
+function btnLoading(btn,txt){ if(btn){ btn._orig=btn.textContent; btn.disabled=true; btn.textContent=txt||'Aguarde...'; } }
+function btnReset(btn){ if(btn){ btn.disabled=false; btn.textContent=btn._orig||btn.textContent; } }
 
-// ══════════════════════════════════════════
-//  NAVEGAÇÃO
-// ══════════════════════════════════════════
 let currentStep = 1;
-
 function goTo(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById(id);
-  if (el) { el.classList.add('active'); window.scrollTo(0, 0); }
-  if (id === 's-solicitar') { currentStep = 1; renderStep(1); }
-  if (id === 's-perfil')    preencherPerfil();
-  if (id === 's-dashboard') atualizarDashboard();
-  if (id === 's-login')     setTimeout(prepararLogin, 50);
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById(id);
+  if(el){ el.classList.add('active'); window.scrollTo(0,0); }
+  if(id==='s-solicitar'){ currentStep=1; renderStep(1); }
+  if(id==='s-perfil')    preencherPerfil();
+  if(id==='s-dashboard') atualizarDashboard();
+  if(id==='s-login')     setTimeout(prepararLogin,50);
 }
 
-// ── Preenche todos os campos do perfil com dados reais do session ──
-function preencherPerfil() {
-  const s = carregarSession();
-  const ini = iniciais(s.nome);
+// ── CADASTRO ──
+async function doCadastro(e) {
+  e.preventDefault();
+  const btn      = document.getElementById('cad-btn');
+  const nome     = (document.getElementById('cad-nome').value+' '+document.getElementById('cad-sobrenome').value).trim();
+  const cpf      = document.getElementById('ccpf').value;
+  const email    = document.getElementById('cad-email').value;
+  const whatsapp = document.getElementById('cwpp').value;
+  const senha    = document.getElementById('cad-senha').value;
+  if(senha.length<8){ showToast('⚠️ Senha mínima: 8 caracteres.','warn'); return; }
+  btnLoading(btn,'Criando conta...');
+  const {data:existe} = await supa.from('usuarios').select('id').eq('cpf',cpf).maybeSingle();
+  if(existe){ btnReset(btn); showToast('⚠️ CPF já cadastrado. Faça login.','warn'); return; }
+  const {data,error} = await supa.from('usuarios').insert([{nome,cpf,email,whatsapp,senha,chave_pix:cpf}]).select().single();
+  btnReset(btn);
+  if(error){ showToast('⚠️ Erro: '+(error.message||'tente novamente.'),'warn'); return; }
+  const d={id:data.id,nome,cpf,email,whatsapp,chavePix:cpf,senha};
+  Object.assign(session,d); salvarSessionStorage(d);
+  enviarFormspree({tipo:'🆕 NOVO CADASTRO',nome,cpf,email,whatsapp});
+  atualizarAvatares(iniciais(nome));
+  iniciarAnalise(nome);
+}
 
-  // topo
-  set('perfil-avatar-ico',    ini || '?');
-  set('perfil-nome-topo',     s.nome  || '—');
-  set('perfil-email-topo',    s.email || '—', true);
+// ── LOGIN ──
+function prepararLogin() {
+  const s=carregarSession();
+  const card=document.getElementById('login-conta-salva');
+  if(s.nome&&s.cpf){
+    document.getElementById('lcs-avatar').textContent=iniciais(s.nome);
+    document.getElementById('lcs-nome').textContent=s.nome;
+    document.getElementById('lcs-cpf').textContent=s.cpf;
+    card.style.display='block';
+    const el=document.getElementById('login-ident'); if(el) el.value=s.email||s.cpf;
+  } else { card.style.display='none'; }
+}
+function loginContaSalva(){
+  const s=carregarSession(); atualizarAvatares(iniciais(s.nome)); goTo('s-dashboard');
+  showToast('✓ Olá de novo, '+s.nome.split(' ')[0]+'!');
+}
+async function doLogin(e) {
+  e.preventDefault();
+  const btn=document.getElementById('login-btn');
+  const ident=document.getElementById('login-ident').value.trim();
+  const senha=document.getElementById('login-senha').value;
+  btnLoading(btn,'Entrando...');
+  const {data:u,error}=await supa.from('usuarios').select('*').or('email.eq.'+ident+',cpf.eq.'+ident).maybeSingle();
+  if(error||!u){ btnReset(btn); showToast('⚠️ Usuário não encontrado.','warn'); return; }
+  if(u.senha!==senha){ btnReset(btn); showToast('⚠️ Senha incorreta.','warn'); return; }
+  btnReset(btn);
+  const d={id:u.id,nome:u.nome,cpf:u.cpf,email:u.email,whatsapp:u.whatsapp,chavePix:u.chave_pix||u.cpf,senha:u.senha};
+  const {data:sol}=await supa.from('solicitacoes').select('*').eq('usuario_id',u.id).eq('status','pendente').order('criado_em',{ascending:false}).limit(1).maybeSingle();
+  if(sol){ d.solicitacaoEnviada=true; d.valorSolicitado=sol.valor_solicitado; d.vencimento=new Date(sol.vencimento+'T00:00:00').toLocaleDateString('pt-BR'); }
+  Object.assign(session,d); salvarSessionStorage(d);
+  atualizarAvatares(iniciais(u.nome)); goTo('s-dashboard');
+  showToast('✓ Bem-vindo(a), '+u.nome.split(' ')[0]+'!');
+}
 
-  // campos
-  setVal('perfil-input-nome',  s.nome);
-  setVal('perfil-input-cpf',   s.cpf);
-  setVal('perfil-input-nasc',  s.nascimento || '');
-  setVal('perfil-input-wpp',   s.whatsapp);
-  setVal('perfil-input-email', s.email);
-  setVal('perfil-input-pix',   s.chavePix || s.cpf);
+// ── ANÁLISE ──
+function iniciarAnalise(nome) {
+  goTo('s-analise');
+  document.getElementById('analise-fase1').style.display='block';
+  document.getElementById('analise-fase2').style.display='none';
+  document.getElementById('analise-bar').style.width='0%';
+  document.getElementById('analise-pct').textContent='0%';
+  ['ach1','ach2','ach3','ach4'].forEach(id=>{ const el=document.getElementById(id); el.style.opacity='.3'; el.querySelector('.ach-ico').textContent='⏳'; el.style.color=''; });
+  [{id:'ach1',pct:25,delay:800},{id:'ach2',pct:55,delay:2000},{id:'ach3',pct:78,delay:3400},{id:'ach4',pct:100,delay:4600}].forEach(s=>{
+    setTimeout(()=>{ const el=document.getElementById(s.id); el.style.opacity='1'; el.querySelector('.ach-ico').textContent='✓'; el.style.color='var(--green)'; document.getElementById('analise-bar').style.width=s.pct+'%'; document.getElementById('analise-pct').textContent=s.pct+'%'; },s.delay);
+  });
+  setTimeout(()=>{ document.getElementById('analise-fase1').style.display='none'; document.getElementById('analise-fase2').style.display='block'; document.getElementById('aprovado-nome').textContent='Parabéns, '+nome.split(' ')[0]+'!'; atualizarAvatares(iniciais(nome)); },5800);
+}
+function irParaSolicitacao(){
+  const s=carregarSession();
+  set('rap-nome-label',s.nome||'—'); set('rap-cpf-label',s.cpf||'—'); set('rap-wpp-label',s.whatsapp||'—'); set('rap-email-label',s.email||'—');
+  const el=document.getElementById('rap-pix'); if(el&&s.chavePix) el.value=s.chavePix;
+  document.getElementById('sol-rap-form').style.display='block'; document.getElementById('sol-rap-sucesso').style.display='none';
+  goTo('s-solicitar-rapido');
+}
 
-  // avatares no nav
+// ── SOLICITAÇÃO ──
+async function enviarSolicitacaoRapida() {
+  const btn=document.getElementById('rap-btn');
+  const valor=parseFloat(document.getElementById('rap-valor').value);
+  const pix=document.getElementById('rap-pix').value.trim();
+  const parc=document.getElementById('rap-parcelas').value;
+  if(!valor||valor<50){ showToast('⚠️ Valor entre R$50 e R$500.','warn'); return; }
+  if(!pix){ showToast('⚠️ Informe a chave Pix.','warn'); return; }
+  const s=carregarSession();
+  const parcLabel=parc==='1'?'1x sem juros':parc==='2'?`2x de R$ ${(valor*1.08/2).toFixed(2)} — 8% a.m.`:`3x de R$ ${(valor*1.09/3).toFixed(2)} — 9% a.m.`;
+  const venc=new Date(); venc.setDate(venc.getDate()+30);
+  const vencStr=venc.toLocaleDateString('pt-BR');
+  const vencISO=venc.toISOString().split('T')[0];
+  btnLoading(btn,'Enviando...');
+  const {error}=await supa.from('solicitacoes').insert([{usuario_id:s.id||null,nome:s.nome,cpf:s.cpf,email:s.email,whatsapp:s.whatsapp,valor_solicitado:valor,chave_pix_recebimento:pix,parcelas:parcLabel,vencimento:vencISO,status:'pendente'}]);
+  btnReset(btn);
+  if(error){ showToast('⚠️ Erro: '+(error.message||'tente novamente.'),'warn'); return; }
+  enviarFormspree({tipo:'💸 NOVA SOLICITAÇÃO',nome:s.nome,cpf:s.cpf,email:s.email,whatsapp:s.whatsapp,valor:'R$ '+valor.toFixed(2),pix_cliente:pix,parcelas:parcLabel,vencimento:vencStr,pix_pagamento:'justcredsuporte@gmail.com',status:'⏳ Pendente'});
+  s.chavePix=pix; s.valorSolicitado=valor; s.solicitacaoEnviada=true; s.vencimento=vencStr;
+  salvarSessionStorage(s);
+  document.getElementById('sol-rap-form').style.display='none'; document.getElementById('sol-rap-sucesso').style.display='block';
+}
+function irAoDashboardPossolicitacao(){ goTo('s-dashboard'); }
+
+// ── DASHBOARD ──
+function atualizarDashboard(){
+  const s=carregarSession();
+  const pn=(s.nome||'').split(' ')[0]||'você';
+  const sEl=document.getElementById('dash-saudacao'); if(sEl) sEl.textContent='Olá, '+pn+'! 👋';
+  const dEl=document.getElementById('dash-data'); if(dEl) dEl.textContent='Bem-vindo(a) à JustCred — '+new Date().toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'});
+  const sem=document.getElementById('dash-sem-solicitacao'); const ag=document.getElementById('dash-aguardando');
+  if(s.solicitacaoEnviada&&s.valorSolicitado){
+    if(sem) sem.style.display='none'; if(ag) ag.style.display='block';
+    set('dash-val-sol','R$ '+parseFloat(s.valorSolicitado).toFixed(2));
+    set('dash-pix-sol',s.chavePix||'—');
+    set('dash-val-pagar','R$ '+parseFloat(s.valorSolicitado).toFixed(2));
+    const vEl=document.getElementById('dash-vencimento');
+    if(vEl){ if(s.vencimento){ vEl.textContent=s.vencimento; } else { const v=new Date(); v.setDate(v.getDate()+30); vEl.textContent=v.toLocaleDateString('pt-BR'); } }
+  } else { if(sem) sem.style.display='block'; if(ag) ag.style.display='none'; }
+  atualizarAvatares(iniciais(s.nome));
+}
+function copiarChavePix(){
+  const ch='justcredsuporte@gmail.com';
+  if(navigator.clipboard){ navigator.clipboard.writeText(ch).then(()=>showToast('✓ Chave copiada!')); }
+  else { const el=document.createElement('textarea'); el.value=ch; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); showToast('✓ Chave copiada!'); }
+}
+
+// ── PERFIL ──
+function preencherPerfil(){
+  const s=carregarSession(); const ini=iniciais(s.nome);
+  set('perfil-avatar-ico',ini||'?'); set('perfil-nome-topo',s.nome||'—'); set('perfil-email-topo',s.email||'—');
+  setVal('perfil-input-nome',s.nome); setVal('perfil-input-cpf',s.cpf); setVal('perfil-input-nasc',s.nascimento||'');
+  setVal('perfil-input-wpp',s.whatsapp); setVal('perfil-input-email',s.email); setVal('perfil-input-pix',s.chavePix||s.cpf);
   atualizarAvatares(ini);
 }
-
-// ── Atualiza saudação no dashboard ──
-function atualizarDashboard() {
-  const s = carregarSession();
-  const primeiroNome = (s.nome || '').split(' ')[0] || 'você';
-  const el = document.querySelector('#s-dashboard .dash-welcome h2');
-  if (el) el.textContent = `Olá, ${primeiroNome}! 👋`;
-}
-
-// ── Salva dados editados no perfil ──
-async function salvarPerfil() {
-  const s = carregarSession();
-  s.nome      = document.getElementById('perfil-input-nome')?.value  || s.nome;
-  s.whatsapp  = document.getElementById('perfil-input-wpp')?.value   || s.whatsapp;
-  s.email     = document.getElementById('perfil-input-email')?.value || s.email;
-  s.nascimento= document.getElementById('perfil-input-nasc')?.value  || s.nascimento;
+async function salvarPerfil(){
+  const s=carregarSession();
+  s.nome=document.getElementById('perfil-input-nome')?.value||s.nome;
+  s.whatsapp=document.getElementById('perfil-input-wpp')?.value||s.whatsapp;
+  s.email=document.getElementById('perfil-input-email')?.value||s.email;
+  s.nascimento=document.getElementById('perfil-input-nasc')?.value||s.nascimento;
   salvarSessionStorage(s);
-  atualizarAvatares(iniciais(s.nome));
-  set('perfil-nome-topo',  s.nome  || '—');
-  set('perfil-email-topo', s.email || '—', true);
-  await enviarFormspree({ tipo: '✏️ PERFIL ATUALIZADO', ...s });
-  showToast('✓ Dados salvos com sucesso!');
+  if(s.id) await supa.from('usuarios').update({nome:s.nome,whatsapp:s.whatsapp,email:s.email}).eq('id',s.id);
+  atualizarAvatares(iniciais(s.nome)); set('perfil-nome-topo',s.nome||'—'); set('perfil-email-topo',s.email||'—');
+  showToast('✓ Dados salvos!');
 }
-
-async function salvarPix() {
-  const s = carregarSession();
-  s.chavePix = document.getElementById('perfil-input-pix')?.value || s.chavePix;
-  salvarSessionStorage(s);
-  await enviarFormspree({ tipo: '🔑 CHAVE PIX ATUALIZADA', cpf: s.cpf, chave_pix: s.chavePix });
+async function salvarPix(){
+  const s=carregarSession(); s.chavePix=document.getElementById('perfil-input-pix')?.value||s.chavePix;
+  salvarSessionStorage(s); if(s.id) await supa.from('usuarios').update({chave_pix:s.chavePix}).eq('id',s.id);
   showToast('✓ Chave Pix atualizada!');
 }
 
-// ── Helpers de session ──
-function carregarSession() {
-  try {
-    const raw = sessionStorage.getItem('jc_session');
-    if (raw) return { ...session, ...JSON.parse(raw) };
-  } catch {}
-  return { ...session };
-}
-function salvarSessionStorage(dados) {
-  Object.assign(session, dados);
-  try { sessionStorage.setItem('jc_session', JSON.stringify(session)); } catch {}
-}
+// ── SESSION ──
+function carregarSession(){ try{ const r=sessionStorage.getItem('jc_session'); if(r) return {...session,...JSON.parse(r)}; }catch{} return {...session}; }
+function salvarSessionStorage(d){ Object.assign(session,d); try{ sessionStorage.setItem('jc_session',JSON.stringify(session)); }catch{} }
 
-// ── Helpers DOM ──
-function set(id, val, isText) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  if (isText) el.textContent = val;
-  else el.textContent = val;
-}
-function setVal(id, val) {
-  const el = document.getElementById(id);
-  if (el && val) el.value = val;
-}
-function iniciais(nome) {
-  if (!nome) return '';
-  return nome.trim().split(' ').filter(Boolean).map(w => w[0]).join('').slice(0, 2).toUpperCase();
-}
-function atualizarAvatares(ini) {
-  if (!ini) return;
-  document.querySelectorAll('.nav-avatar, .perfil-avatar').forEach(el => el.textContent = ini);
-}
+// ── DOM ──
+function set(id,val){ const el=document.getElementById(id); if(el) el.textContent=val; }
+function setVal(id,val){ const el=document.getElementById(id); if(el&&val!==undefined) el.value=val; }
+function iniciais(n){ if(!n) return ''; return n.trim().split(' ').filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+function atualizarAvatares(ini){ if(!ini) return; document.querySelectorAll('.nav-avatar, .perfil-avatar').forEach(el=>el.textContent=ini); }
 
 // ══════════════════════════════════════════
 //  1. LANDING — Solicitação rápida
@@ -1728,10 +1776,19 @@ async function enviarSolicitacaoRapida() {
   const parc  = document.getElementById('rap-parcelas').value;
 
   if (!valor || valor < 50) { showToast('⚠️ Informe um valor entre R$50 e R$500.', 'warn'); return; }
-  if (!pix)                 { showToast('⚠️ Informe sua chave Pix.', 'warn'); return; }
+  if (!pix)                 { showToast('⚠️ Informe sua chave Pix para recebimento.', 'warn'); return; }
 
   const s = carregarSession();
-  const parcLabel = parc === '1' ? '1x sem juros' : parc === '2' ? `2x de R$ ${(valor*1.08/2).toFixed(2)}` : `3x de R$ ${(valor*1.09/3).toFixed(2)}`;
+  const parcLabel = parc === '1'
+    ? '1x sem juros — pagamento único'
+    : parc === '2'
+    ? `2x de R$ ${(valor*1.08/2).toFixed(2)} — 8% a.m.`
+    : `3x de R$ ${(valor*1.09/3).toFixed(2)} — 9% a.m.`;
+
+  // Calcula vencimento (hoje + 30 dias)
+  const venc = new Date();
+  venc.setDate(venc.getDate() + 30);
+  const vencStr = venc.toLocaleDateString('pt-BR');
 
   const ok = await enviarFormspree({
     tipo:             '💸 SOLICITAÇÃO DE CRÉDITO',
@@ -1740,19 +1797,21 @@ async function enviarSolicitacaoRapida() {
     email:            s.email    || '—',
     whatsapp:         s.whatsapp || '—',
     valor_solicitado: 'R$ ' + parseFloat(valor).toFixed(2),
-    chave_pix:        pix,
+    chave_pix_recebimento: pix,
     parcelas:         parcLabel,
-    status:           '⏳ Aguardando pagamento — prazo: 1 hora',
+    vencimento_pagamento: vencStr,
+    chave_pix_pagamento:  'justcredsuporte@gmail.com',
+    status:           '⏳ Aguardando liberação — prazo: 1 hora',
   }, btn);
 
   if (ok) {
-    // Salva chave pix na sessão
-    s.chavePix = pix;
+    // Salva estado na sessão
+    s.chavePix           = pix;
+    s.valorSolicitado    = valor;
+    s.solicitacaoEnviada = true;
+    s.vencimento         = vencStr;
     salvarSessionStorage(s);
-    // Preenche resumo de sucesso
-    set('sucesso-valor', 'R$ ' + parseFloat(valor).toFixed(2));
-    set('sucesso-pix',   pix);
-    set('sucesso-parc',  parcLabel);
+
     document.getElementById('sol-rap-form').style.display   = 'none';
     document.getElementById('sol-rap-sucesso').style.display = 'block';
   } else {
@@ -2168,9 +2227,9 @@ function closeModal(id) {
 }
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    ['modal-termos','modal-privacidade'].forEach(id => {
+    ["modal-termos","modal-privacidade"].forEach(id => {
       const m = document.getElementById(id);
-      if (m && m.style.display === 'flex') closeModal(id);
+      if (m && m.style.display === "flex") closeModal(id);
     });
   }
 });
